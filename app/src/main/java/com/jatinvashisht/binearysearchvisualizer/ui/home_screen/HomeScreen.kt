@@ -2,8 +2,12 @@ package com.jatinvashisht.binearysearchvisualizer.ui.home_screen
 
 import android.util.Log
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -73,6 +77,7 @@ fun HomeScreen(
                     .height(150.dp),
                 horizontalArrangement = Arrangement.Start,
             ) {
+
                 TextBoxes(intList = viewModel.elementList.value)
             }
         }
@@ -89,16 +94,28 @@ fun PlayPauseButton(modifier: Modifier = Modifier, buttonText: String ,onButtonC
 @Composable
 fun TextBoxes(intList: List<Int>) {
     Log.d("HomeScreen", "entered in text boxes function $intList")
-    intList.forEach {
+//    intList.forEach {
         var  colorState by remember{ mutableStateOf(Color.Gray) }
         val color by animateColorAsState(targetValue = colorState, animationSpec = tween(300))
-        Box(modifier = Modifier
-            .size(75.dp)
-            .padding(4.dp)
-            .drawBehind { drawRect(color = color) },
-            contentAlignment = Alignment.Center
-        ){
-            Text(text = it.toString(), modifier = Modifier.align(Alignment.Center))
+//        Box(modifier = Modifier
+//            .size(75.dp)
+//            .padding(4.dp)
+//            .drawBehind { drawRect(color = color) },
+//            contentAlignment = Alignment.Center
+//        ){
+//            Text(text = it.toString(), modifier = Modifier.align(Alignment.Center))
+//        }
+        LazyRow(modifier = Modifier.animateContentSize(animationSpec = tween(400))){
+            items(intList){
+                Box(modifier = Modifier
+                    .size(75.dp)
+                    .padding(4.dp)
+                    .drawBehind { drawRect(color = color) },
+                    contentAlignment = Alignment.Center
+                ){
+                    Text(text = it.toString(), modifier = Modifier.align(Alignment.Center))
+                }
+            }
         }
-    }
+//    }
 }
