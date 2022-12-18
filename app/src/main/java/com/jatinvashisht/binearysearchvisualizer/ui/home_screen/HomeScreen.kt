@@ -71,7 +71,7 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.Start,
             ) {
                 TextBoxes(intList = viewModel.elementList.value)
             }
@@ -94,7 +94,10 @@ fun TextBoxes(intList: List<Int>) {
         val color by animateColorAsState(targetValue = colorState, animationSpec = tween(300))
         Box(modifier = Modifier
             .size(75.dp)
-            .drawBehind { drawRect(color = color) }, contentAlignment = Alignment.Center){
+            .padding(4.dp)
+            .drawBehind { drawRect(color = color) },
+            contentAlignment = Alignment.Center
+        ){
             Text(text = it.toString(), modifier = Modifier.align(Alignment.Center))
         }
     }
